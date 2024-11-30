@@ -705,6 +705,15 @@ OlMap.prototype._addGeoportalLayer = function (layerObj, layerConf) {
         options : layerOpts
     });
     this.libMap.addLayer(olLayer);
+    this.libMap.on("rendercomplete", (e) => {
+        var eMapLoaded = IMap.CustomEvent("mapFullyLoaded", {
+            detail : {
+                map : this
+            }
+        });
+        document.dispatchEvent(eMapLoaded);
+    });
+
     this._addLayerConfToLayerSwitcher(olLayer, layerOpts);
 };
 
